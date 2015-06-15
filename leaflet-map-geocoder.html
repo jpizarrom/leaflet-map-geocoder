@@ -1,0 +1,122 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<script src="../leaflet-control-geocoder/Control.Geocoder.js"></script>
+<link rel="stylesheet" href="../leaflet-control-geocoder/Control.Geocoder.css" />
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <leaflet-map-geocoder></leaflet-map-geocoder>
+
+@demo demo/index.html
+-->
+
+<script>
+
+  Polymer({
+
+    is: 'leaflet-map-geocoder',
+
+    properties: {
+
+      query: {
+        type: String,
+        value: null
+      },
+
+      container: {
+        type: Object
+      },
+
+      latitude: {
+        type: Number,
+        value: -33.4377968,
+        notify: true
+      },
+
+      longitude: {
+        type: Number,
+        value: -70.650445,
+        notify: true
+      },
+
+      result: {
+        type: Object,
+        value: null,
+        notify: true
+      }
+
+    },
+
+    // Element Lifecycle
+
+    ready: function() {
+      // `ready` is called after all elements have been configured, but
+      // propagates bottom-up. This element's children are ready, but parents
+      // are not.
+      //
+      // This is the point where you should make modifications to the DOM (when
+      // necessary), or kick off any processes the element wants to perform.
+    },
+
+    attached: function() {
+      // `attached` fires once the element and its parents have been inserted
+      // into a document.
+      //
+      // This is a good place to perform any work related to your element's
+      // visual state or active behavior (measuring sizes, beginning animations,
+      // loading resources, etc).
+      this.geocoder = L.Control.Geocoder.nominatim();
+    },
+
+    detached: function() {
+      // The analog to `attached`, `detached` fires when the element has been
+      // removed from a document.
+      //
+      // Use this to clean up anything you did in `attached`.
+    },
+
+    // Element Behavior
+
+    /**
+     * The `leaflet-map-geocoder-result` event is fired when the search element returns a result.
+     *
+     * @event leaflet-map-geocoder-result
+     * @param {Object} detail
+     *  @param {number} detail.latitude Latitude of the result.
+     *  @param {number} detail.longitude Longitude of the result.
+     */
+
+    search: function() {
+        if (this.container && this.query) {
+            this.geocoder.geocode(this.query, this._gotResults.bind(this));
+        }
+    },
+    _gotResults: function(results) {
+      if (!results) return;
+      if (results.length==0) return;
+      result=results[0];
+      this.latitude = result.center.lat;
+      this.longitude = result.center.lng;
+      this.result = {
+        latitude: result.center.lat,
+        longitude: result.center.lng
+      };
+
+      this.container.panTo(new L.LatLng(result.center.lat, result.center.lng));
+      
+      this.fire('leaflet-map-geocoder-result', this.result);
+    }
+  });
+
+</script>
