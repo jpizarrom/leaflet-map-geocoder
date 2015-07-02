@@ -1,0 +1,50 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>leaflet-map-geocoder Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-input/iron-input.html">
+    <link rel="import" href="../../leaflet-map/leaflet-map.html">
+    <link rel="import" href="../leaflet-map-geocoder.html">
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+      }
+      leaflet-map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <p>An example of <code>&lt;leaflet-map-geocoder&gt;</code>:</p>
+
+    <template is="dom-bind">
+      <p>
+        <div>Result:
+          <span>{{result.latitude}}</span>,
+          <span>{{result.longitude}}</span>
+        </div>
+
+      </p>
+
+      <leaflet-map latitude="-33.4377968" longitude="-70.6504451" zoom="13">
+        <leaflet-map-geocoder-control result="{{result}}"></leaflet-map-geocoder-control>
+      </leaflet-map>
+
+    </template>
+
+  </body>
+</html>
