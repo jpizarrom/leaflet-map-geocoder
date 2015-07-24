@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "leaflet-map": "~1.0.1",
+    "leaflet-map": "~1.1.0",
     "leaflet-control-geocoder": "~1.1.0",
     "iron-input": "PolymerElements/iron-input#^1.0.0"
   },
